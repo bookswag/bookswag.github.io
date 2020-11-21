@@ -6,19 +6,19 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>gRPC | Daniel’s tech-blog</title>
+<title>sql &gt; ORDER BY | Daniel’s tech-blog</title>
 <meta name="generator" content="Jekyll v3.8.4" />
-<meta property="og:title" content="gRPC" />
+<meta property="og:title" content="sql &gt; ORDER BY" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="blah blah" />
-<meta property="og:description" content="blah blah" />
-<link rel="canonical" href="http://localhost:4000/microservice/20-11-18-gRPC/" />
-<meta property="og:url" content="http://localhost:4000/microservice/20-11-18-gRPC/" />
+<meta name="description" content="ORDER BY 정렬" />
+<meta property="og:description" content="ORDER BY 정렬" />
+<link rel="canonical" href="http://localhost:4000/database/20-11-21-sql-ORDER_BY/" />
+<meta property="og:url" content="http://localhost:4000/database/20-11-21-sql-ORDER_BY/" />
 <meta property="og:site_name" content="Daniel’s tech-blog" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-11-18T00:00:00+00:00" />
+<meta property="article:published_time" content="2020-11-21T00:00:00+00:00" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/microservice/20-11-18-gRPC/","headline":"gRPC","dateModified":"2020-11-18T00:00:00+00:00","datePublished":"2020-11-18T00:00:00+00:00","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/siteicon.png"}},"description":"blah blah","@type":"Article","@context":"http://schema.org"}</script>
+{"url":"http://localhost:4000/database/20-11-21-sql-ORDER_BY/","headline":"sql &gt; ORDER BY","dateModified":"2020-11-21T00:00:00+00:00","datePublished":"2020-11-21T00:00:00+00:00","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/siteicon.png"}},"description":"ORDER BY 정렬","@type":"Article","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Daniel's tech-blog" />
@@ -56,24 +56,24 @@
 				<ul>
 					
 					
-						<li class="nav-item top-level ">
+						<li class="nav-item top-level current">
 							
 							<a href="/database/20-11-18-transaction1/">database</a>
 							<ul>
 								
 									<li class="nav-item "><a href="/database/20-11-18-transaction1/">transaction</a></li>
 								
-									<li class="nav-item "><a href="/database/20-11-21-sql-ORDER_BY/">sql > ORDER BY</a></li>
+									<li class="nav-item current"><a href="/database/20-11-21-sql-ORDER_BY/">sql > ORDER BY</a></li>
 								
 							</ul>
 						</li>
 					
-						<li class="nav-item top-level current">
+						<li class="nav-item top-level ">
 							
 							<a href="/microservice/20-11-18-gRPC/">microservice</a>
 							<ul>
 								
-									<li class="nav-item current"><a href="/microservice/20-11-18-gRPC/">gRPC</a></li>
+									<li class="nav-item "><a href="/microservice/20-11-18-gRPC/">gRPC</a></li>
 								
 							</ul>
 						</li>
@@ -101,23 +101,57 @@
 
 		<section class="main">
 			<div class="page-header">
-				<h2>microservice</h2>
-				<h3>gRPC</h3>
+				<h2>database</h2>
+				<h3>sql > ORDER BY</h3>
 			</div>
 			<article class="content">
-				<p>blah blah</p>
+				<p>ORDER BY 정렬</p>
 
+<h4 id="query-1">query 1.</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT PLAYER_NAME 선수명, POSITION 포지션, BACK_NO 백넘버 FROM PLAYER ORDER BY PLAYER_NAME DESC;
+
+//result
+선수명 포지션 백넘버
+----- ----- ----
+히카르도	MF	10
+황철민	MF	35
+황연석	FW	16
+황승주	DF	98
+홍종하	MF	32
+홍인기	DF	35
+홍성요	DF	28
+홍복표	FW	19
+홍명보	DF	20
+홍도표	MF	9
+홍광철	DF	4
+호제리오	DF	3
+</code></pre></div></div>
+
+<h4 id="query-2">query 2.</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT PLAYER_NAME 선수명, POSITION 포지션, BACK_NO 백넘버 FROM PLAYER ORDER BY 포지션 DESC;
+
+//result, Oracle은 null을 가장 큰 값으로 취급 
+선수명 포지션 백넘버 키 
+------ ------ ----- --- 
+정학범			173 
+차상광			186
+안익수			174
+백영철	MF	22	173 
+조태용	MF	7	192 
+올리베	MF	29	190 
+김리네	MF	26	188 
+쟈스민	MF	33	186
+</code></pre></div></div>
+
+<p><strong>reference link</strong></p>
 <blockquote>
-  <p>blah blah</p>
+  <ul>
+    <li><a href="http://www.dbguide.net/db.db?cmd=view&amp;boardUid=148196&amp;boardConfigUid=9&amp;categoryUid=216&amp;boardIdx=134&amp;boardStep=1">db guidnet</a></li>
+    <li>etc</li>
+  </ul>
 </blockquote>
 
-<p>reference</p>
-
-<ol>
-  <li>youtube</li>
-  <li>infoq</li>
-  <li>java magazine</li>
-</ol>
 
 			</article>
 		</section>
