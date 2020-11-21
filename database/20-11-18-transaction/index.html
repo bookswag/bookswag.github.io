@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>transaction | Daniel’s tech-blog</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="transaction" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Lock 데이터베이스의 일관성과 무결성을 유지하기 위해 transaction의 순차적 진행을 보장할 수 있는 serialization 장치로 모든 DBMS가 공통으로 사용하는 메커니즘 DBMS마다 lock을 구현하는 방식과 세부기능이 많이 다름 Shared(공유) lock 데이터 read 시 사용. 다른 Shared lock과는 호환되나 Exclusive lock과는 호환 불가 ‘호환된다’는 말은 한 리소스에 두 개 이상의 lock을 동시 설정 가능하다는 의미 Exclusive(배타적) lock 데이터 write 시 사용, transaction 완료될 때까지 유지. 이 lock이 해제될 때까지 다른 transaction은 해당 리소스에 접근 불가" />
+<meta property="og:description" content="Lock 데이터베이스의 일관성과 무결성을 유지하기 위해 transaction의 순차적 진행을 보장할 수 있는 serialization 장치로 모든 DBMS가 공통으로 사용하는 메커니즘 DBMS마다 lock을 구현하는 방식과 세부기능이 많이 다름 Shared(공유) lock 데이터 read 시 사용. 다른 Shared lock과는 호환되나 Exclusive lock과는 호환 불가 ‘호환된다’는 말은 한 리소스에 두 개 이상의 lock을 동시 설정 가능하다는 의미 Exclusive(배타적) lock 데이터 write 시 사용, transaction 완료될 때까지 유지. 이 lock이 해제될 때까지 다른 transaction은 해당 리소스에 접근 불가" />
+<link rel="canonical" href="http://localhost:4000/database/20-11-18-transaction/" />
+<meta property="og:url" content="http://localhost:4000/database/20-11-18-transaction/" />
+<meta property="og:site_name" content="Daniel’s tech-blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-18T00:00:00+00:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/database/20-11-18-transaction/","headline":"transaction","dateModified":"2020-11-18T00:00:00+00:00","datePublished":"2020-11-18T00:00:00+00:00","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/siteicon.png"}},"description":"Lock 데이터베이스의 일관성과 무결성을 유지하기 위해 transaction의 순차적 진행을 보장할 수 있는 serialization 장치로 모든 DBMS가 공통으로 사용하는 메커니즘 DBMS마다 lock을 구현하는 방식과 세부기능이 많이 다름 Shared(공유) lock 데이터 read 시 사용. 다른 Shared lock과는 호환되나 Exclusive lock과는 호환 불가 ‘호환된다’는 말은 한 리소스에 두 개 이상의 lock을 동시 설정 가능하다는 의미 Exclusive(배타적) lock 데이터 write 시 사용, transaction 완료될 때까지 유지. 이 lock이 해제될 때까지 다른 transaction은 해당 리소스에 접근 불가","@type":"Article","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Daniel's tech-blog" />
+
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic|Open+Sans:400,400italic,600,600italic,700,700italic|Inconsolata:400,700">
+		<link rel="stylesheet" href="/css/main.css">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="/touch-icon.png" sizes="192x192">
+		<link rel="icon" type="image/png" href="/images/favicon.png">
+
+		
+	</head>
+
+	<body>
+		<header>
+			<h1>
+				<a href="/"><img src="/images/emblem.svg" width="40" height="40" alt="Daniel's tech-blog logo"></a>
+				Daniel's tech-blog
+				<button type="button" class="open-nav" id="open-nav"></button>
+			</h1>
+
+			<form action="/search/" method="get">
+				<input type="text" name="q" id="search-input" placeholder="Search" autofocus>
+				<input type="submit" value="Search" style="display: none;">
+			</form>
+
+			<nav class="full-navigation">
+				<ul>
+					<li class="nav-item top-level ">
+						
+						<a href="/">Back to the basic</a>
+					</li>
+				</ul>
+
+				<ul>
+					
+					
+						<li class="nav-item top-level current">
+							
+							<a href="/database/20-11-18-transaction/">database</a>
+							<ul>
+								
+									<li class="nav-item current"><a href="/database/20-11-18-transaction/">transaction</a></li>
+								
+									<li class="nav-item "><a href="/database/20-11-21-sql-ORDER_BY/">sql > ORDER BY</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/microservice/20-11-18-gRPC/">microservice</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/microservice/20-11-18-gRPC/">gRPC</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/web/20-11-18-proxy/">web</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/web/20-11-18-proxy/">proxy</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/jvm/20-11-21-gc/">jvm</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/jvm/20-11-21-gc/">GC</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+
+				<ul>
+					<li class="nav-item top-level ">
+						
+						<a href="/changelog/">Change Log</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<section class="main">
+			<div class="page-header">
+				<h2>database</h2>
+				<h3>transaction</h3>
+			</div>
+			<article class="content">
+				<ol>
+  <li>Lock
+    <ul>
+      <li>데이터베이스의 일관성과 무결성을 유지하기 위해 transaction의 순차적 진행을 보장할 수 있는 serialization 장치로 모든 DBMS가 공통으로 사용하는 메커니즘
+        <ul>
+          <li>DBMS마다 lock을 구현하는 방식과 세부기능이 많이 다름</li>
+        </ul>
+      </li>
+      <li>Shared(공유) lock
+        <ul>
+          <li>데이터 read 시 사용. 다른 Shared lock과는 호환되나 Exclusive lock과는 호환 불가</li>
+          <li>‘호환된다’는 말은 한 리소스에 두 개 이상의 lock을 동시 설정 가능하다는 의미</li>
+        </ul>
+      </li>
+      <li>Exclusive(배타적) lock
+        <ul>
+          <li>데이터 write 시 사용, transaction 완료될 때까지 유지.</li>
+          <li>이 lock이 해제될 때까지 다른 transaction은 해당 리소스에 접근 불가</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<blockquote>
+  <p>blah blah</p>
+</blockquote>
+
+<p><strong>reference link</strong></p>
+<blockquote>
+  <ul>
+    <li><a href="https://github.com/JaeYeopHan/Interview_Question_for_Beginner/tree/master/Database#transaction">github.com/JaeYeopHan/Interview_Question_for_Beginner#transaction</a></li>
+    <li><a href="http://www.dbguide.net/db.db?cmd=view&amp;boardUid=148215&amp;boardConfigUid=9&amp;categoryUid=216&amp;boardIdx=138&amp;boardStep=1">DB guidenet</a></li>
+    <li>etc</li>
+  </ul>
+</blockquote>
+
+			</article>
+		</section>
+
+		<script>
+			document.getElementById("open-nav").addEventListener("click", function () {
+				document.body.classList.toggle("nav-open");
+			});
+		</script>
+	</body>
+</html>
