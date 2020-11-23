@@ -10,15 +10,15 @@
 <meta name="generator" content="Jekyll v3.8.4" />
 <meta property="og:title" content="transaction" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Lock 데이터베이스의 일관성과 무결성을 유지하기 위해 transaction의 순차적 진행을 보장할 수 있는 serialization 장치로 모든 DBMS가 공통으로 사용하는 메커니즘 DBMS마다 lock을 구현하는 방식과 세부기능이 많이 다름 Shared(공유) lock 데이터 read 시 사용. 다른 Shared lock과는 호환되나 Exclusive lock과는 호환 불가 ‘호환된다’는 말은 한 리소스에 두 개 이상의 lock을 동시 설정 가능하다는 의미 Exclusive(배타적) lock 데이터 write 시 사용, transaction 완료될 때까지 유지. 이 lock이 해제될 때까지 다른 transaction은 해당 리소스에 접근 불가" />
-<meta property="og:description" content="Lock 데이터베이스의 일관성과 무결성을 유지하기 위해 transaction의 순차적 진행을 보장할 수 있는 serialization 장치로 모든 DBMS가 공통으로 사용하는 메커니즘 DBMS마다 lock을 구현하는 방식과 세부기능이 많이 다름 Shared(공유) lock 데이터 read 시 사용. 다른 Shared lock과는 호환되나 Exclusive lock과는 호환 불가 ‘호환된다’는 말은 한 리소스에 두 개 이상의 lock을 동시 설정 가능하다는 의미 Exclusive(배타적) lock 데이터 write 시 사용, transaction 완료될 때까지 유지. 이 lock이 해제될 때까지 다른 transaction은 해당 리소스에 접근 불가" />
+<meta name="description" content="TCL(Transaction control language) Commit : 올바르게 반영된 데이터를 DB에 반영 Rollback : transaction 시작 이전의 상태로 되돌림 Savepoint : 저장점" />
+<meta property="og:description" content="TCL(Transaction control language) Commit : 올바르게 반영된 데이터를 DB에 반영 Rollback : transaction 시작 이전의 상태로 되돌림 Savepoint : 저장점" />
 <link rel="canonical" href="http://localhost:4000/database/20-11-18-transaction/" />
 <meta property="og:url" content="http://localhost:4000/database/20-11-18-transaction/" />
 <meta property="og:site_name" content="Daniel’s tech-blog" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-11-18T00:00:00+00:00" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/database/20-11-18-transaction/","headline":"transaction","dateModified":"2020-11-18T00:00:00+00:00","datePublished":"2020-11-18T00:00:00+00:00","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/siteicon.png"}},"description":"Lock 데이터베이스의 일관성과 무결성을 유지하기 위해 transaction의 순차적 진행을 보장할 수 있는 serialization 장치로 모든 DBMS가 공통으로 사용하는 메커니즘 DBMS마다 lock을 구현하는 방식과 세부기능이 많이 다름 Shared(공유) lock 데이터 read 시 사용. 다른 Shared lock과는 호환되나 Exclusive lock과는 호환 불가 ‘호환된다’는 말은 한 리소스에 두 개 이상의 lock을 동시 설정 가능하다는 의미 Exclusive(배타적) lock 데이터 write 시 사용, transaction 완료될 때까지 유지. 이 lock이 해제될 때까지 다른 transaction은 해당 리소스에 접근 불가","@type":"Article","@context":"http://schema.org"}</script>
+{"url":"http://localhost:4000/database/20-11-18-transaction/","headline":"transaction","dateModified":"2020-11-18T00:00:00+00:00","datePublished":"2020-11-18T00:00:00+00:00","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/siteicon.png"}},"description":"TCL(Transaction control language) Commit : 올바르게 반영된 데이터를 DB에 반영 Rollback : transaction 시작 이전의 상태로 되돌림 Savepoint : 저장점","@type":"Article","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Daniel's tech-blog" />
@@ -118,6 +118,13 @@
 			</div>
 			<article class="content">
 				<ol>
+  <li>TCL(Transaction control language)
+    <ul>
+      <li>Commit : 올바르게 반영된 데이터를 DB에 반영</li>
+      <li>Rollback : transaction 시작 이전의 상태로 되돌림</li>
+      <li>Savepoint : 저장점</li>
+    </ul>
+  </li>
   <li>Lock
     <ul>
       <li>데이터베이스의 일관성과 무결성을 유지하기 위해 transaction의 순차적 진행을 보장할 수 있는 serialization 장치로 모든 DBMS가 공통으로 사용하는 메커니즘
