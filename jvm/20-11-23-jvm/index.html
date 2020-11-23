@@ -6,17 +6,19 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Not Found | Daniel’s tech-blog</title>
+<title>jvm | Daniel’s tech-blog</title>
 <meta name="generator" content="Jekyll v3.8.4" />
-<meta property="og:title" content="Not Found" />
+<meta property="og:title" content="jvm" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Product documentation template for Jekyll." />
-<meta property="og:description" content="Product documentation template for Jekyll." />
-<link rel="canonical" href="http://localhost:4000/404.html" />
-<meta property="og:url" content="http://localhost:4000/404.html" />
+<meta name="description" content="JVM은 표준화된 정의로만 존재하며, Oracle, IBM 등 각 JVM 벤더들이 표준에 맞도록 별도로 JVM을 구현한 독자적인 Runtime instance라 할 수 있다. 따라서, JVM의 역할은 개발자들이 작성한 Java 프로그램이나 Web Application Server 등 구별없이 Java 프로그램의 범주에 들어가는 모든 것들을 실행시키는 데몬" />
+<meta property="og:description" content="JVM은 표준화된 정의로만 존재하며, Oracle, IBM 등 각 JVM 벤더들이 표준에 맞도록 별도로 JVM을 구현한 독자적인 Runtime instance라 할 수 있다. 따라서, JVM의 역할은 개발자들이 작성한 Java 프로그램이나 Web Application Server 등 구별없이 Java 프로그램의 범주에 들어가는 모든 것들을 실행시키는 데몬" />
+<link rel="canonical" href="http://localhost:4000/jvm/20-11-23-jvm/" />
+<meta property="og:url" content="http://localhost:4000/jvm/20-11-23-jvm/" />
 <meta property="og:site_name" content="Daniel’s tech-blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-23T00:00:00+00:00" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/404.html","headline":"Not Found","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/siteicon.png"}},"description":"Product documentation template for Jekyll.","@type":"WebPage","@context":"http://schema.org"}</script>
+{"url":"http://localhost:4000/jvm/20-11-23-jvm/","headline":"jvm","dateModified":"2020-11-23T00:00:00+00:00","datePublished":"2020-11-23T00:00:00+00:00","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/siteicon.png"}},"description":"JVM은 표준화된 정의로만 존재하며, Oracle, IBM 등 각 JVM 벤더들이 표준에 맞도록 별도로 JVM을 구현한 독자적인 Runtime instance라 할 수 있다. 따라서, JVM의 역할은 개발자들이 작성한 Java 프로그램이나 Web Application Server 등 구별없이 Java 프로그램의 범주에 들어가는 모든 것들을 실행시키는 데몬","@type":"Article","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Daniel's tech-blog" />
@@ -86,14 +88,14 @@
 							</ul>
 						</li>
 					
-						<li class="nav-item top-level ">
+						<li class="nav-item top-level current">
 							
 							<a href="/jvm/20-11-21-gc/">jvm</a>
 							<ul>
 								
 									<li class="nav-item "><a href="/jvm/20-11-21-gc/">GC</a></li>
 								
-									<li class="nav-item "><a href="/jvm/20-11-23-jvm/">jvm</a></li>
+									<li class="nav-item current"><a href="/jvm/20-11-23-jvm/">jvm</a></li>
 								
 							</ul>
 						</li>
@@ -111,11 +113,25 @@
 
 		<section class="main">
 			<div class="page-header">
-				<h2>Daniel's tech-blog</h2>
-				<h3>Not Found</h3>
+				<h2>jvm</h2>
+				<h3>jvm</h3>
 			</div>
 			<article class="content">
-				<p>This page doesn’t exist!</p>
+				<p>JVM은 표준화된 정의로만 존재하며, Oracle, IBM 등 각 JVM 벤더들이 표준에 맞도록 별도로 JVM을 구현한 독자적인 Runtime instance라 할 수 있다.
+따라서, JVM의 역할은 개발자들이 작성한 Java 프로그램이나 Web Application Server 등 구별없이 Java 프로그램의 범주에 들어가는 모든 것들을 실행시키는 데몬</p>
+
+<p>Java 프로그램 실행 시</p>
+<ol>
+  <li>complie로 class 파일 생성</li>
+  <li>해당 class 파일을 JVM으로 로딩</li>
+  <li>byteCode를 해석(interpret)</li>
+  <li>메모리 등의 리소스를 할당하고 관리하며 정보 처리.
+    <ul>
+      <li>이때, JVM은 thread 관리 및 Garbage Collection과 같은 메모리 정리 작업도 수행</li>
+    </ul>
+  </li>
+</ol>
+
 
 			</article>
 		</section>
